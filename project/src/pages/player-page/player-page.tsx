@@ -1,7 +1,17 @@
-function PlayerPage(): JSX.Element {
+import { useParams } from 'react-router-dom';
+import { MovieDescription } from '../../types/movie';
+
+type PlayerPageProps = {
+  movies: MovieDescription[];
+}
+
+function PlayerPage({movies}: PlayerPageProps): JSX.Element {
+
+  const params = useParams();
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src="#" className="player__video" poster={movies[Number(params.id) - 1].backgroundImage}></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -17,7 +27,7 @@ function PlayerPage(): JSX.Element {
         <div className="player__controls-row">
           <button type="button" className="player__play">
             <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s"></use>
+              <use xlinkHref={movies[Number(params.id) - 1].previewVideoLink}></use>
             </svg>
             <span>Play</span>
           </button>
@@ -25,7 +35,7 @@ function PlayerPage(): JSX.Element {
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref="#full-screen"></use>
+              <use xlinkHref={movies[Number(params.id) - 1].videoLink}></use>
             </svg>
             <span>Full screen</span>
           </button>
