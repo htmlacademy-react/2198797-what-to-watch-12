@@ -1,18 +1,17 @@
-import MovieCard from '../../components/movie-card/movie-card';
 import Logo from '../../components/logo/logo';
+import { MovieDescription } from '../../types/movie';
+import MoviesList from '../../components/movies-list/movies-list';
 
 type MainPageProps = {
-  movieTitle: string;
-  genre: string;
-  releaseDate: string;
+  movies: MovieDescription[];
 }
 
-function MainPage({movieTitle, genre, releaseDate}: MainPageProps): JSX.Element {
+function MainPage({movies}: MainPageProps): JSX.Element {
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={movies[0].backgroundImage} alt={movies[0].name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -35,14 +34,14 @@ function MainPage({movieTitle, genre, releaseDate}: MainPageProps): JSX.Element 
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={movieTitle} width="218" height="327" />
+              <img src={movies[0].posterImage} alt={movies[0].name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{movieTitle}</h2>
+              <h2 className="film-card__title">{movies[0].name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{releaseDate}</span>
+                <span className="film-card__genre">{movies[0].genre}</span>
+                <span className="film-card__year">{movies[0].released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -102,26 +101,7 @@ function MainPage({movieTitle, genre, releaseDate}: MainPageProps): JSX.Element 
           </ul>
 
           <div className="catalog__films-list">
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
+            <MoviesList movies={movies}/>
           </div>
 
           <div className="catalog__more">
