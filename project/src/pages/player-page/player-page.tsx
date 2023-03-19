@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { MovieDescription } from '../../types/movie';
+import { useState, useEffect, useRef} from 'react';
 
 type PlayerPageProps = {
   movies: MovieDescription[];
@@ -9,9 +10,39 @@ function PlayerPage({movies}: PlayerPageProps): JSX.Element {
 
   const params = useParams();
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    let isVideoPlayerMounted = true;
+
+    if (videoRef.current === null) {
+      return;
+    }
+
+    videoRef.current.addEventListener('loadeddata', () => {
+      if (isVideoPlayerMounted) {
+        setIsLoading(false);
+      }
+    });
+
+    if (isPlaying) {
+      videoRef.current.play();
+      return;
+    }
+
+    videoRef.current.pause();
+
+    return () => {
+      isVideoPlayerMounted = false;
+    };
+  }, [isPlaying]);
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster={movies[Number(params.id) - 1].backgroundImage}></video>
+      <video src={movies[Number(params.id) - 1].videoLink} className="player__video" poster={movies[Number(params.id) - 1].backgroundImage} ref={videoRef} ></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -25,9 +56,13 @@ function PlayerPage({movies}: PlayerPageProps): JSX.Element {
         </div>
 
         <div className="player__controls-row">
-          <button type="button" className="player__play">
+          <button type="button"
+            className="player__play"
+            disabled={isLoading}
+            onClick={() => setIsPlaying(!isPlaying)}
+          >
             <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref={movies[Number(params.id) - 1].previewVideoLink}></use>
+              <use xlinkHref="#play-s"></use>
             </svg>
             <span>Play</span>
           </button>
@@ -35,7 +70,7 @@ function PlayerPage({movies}: PlayerPageProps): JSX.Element {
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref={movies[Number(params.id) - 1].videoLink}></use>
+              <use xlinkHref="#full-screen"></use>
             </svg>
             <span>Full screen</span>
           </button>

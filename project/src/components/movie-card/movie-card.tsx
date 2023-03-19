@@ -1,17 +1,40 @@
-import { MovieDescription } from '../../types/movie';
-import {Link} from 'react-router-dom';
 
+import { MovieDescription } from '../../types/movie';
+import VideoPlayer from '../video-player/video-player';
+import {Link} from 'react-router-dom';
+import {useState} from 'react';
+
+const PREVIEW_TIMEOUT = 1000;
 
 type MovieCardProps = {
   movie: MovieDescription;
-  onMovie: (movie: MovieDescription) => void;
 }
 
-function MovieCard({movie, onMovie}: MovieCardProps): JSX.Element {
+let timeoutId: ReturnType<typeof setTimeout>;
+
+
+function MovieCard({movie}: MovieCardProps): JSX.Element {
+
+  const [isVideoPlaing, setVideoPlaing] = useState(false);
+
+
+  function mouseOverHandler(){
+    timeoutId = setTimeout(() => setVideoPlaing(true), PREVIEW_TIMEOUT);
+  }
+
+  function mouseOutHandler() {
+    clearTimeout(timeoutId);
+    setVideoPlaing(false);
+  }
+
   return (
-    <article onMouseMove={() => {onMovie(movie);}} className="small-film-card catalog__films-card">
+    <article onMouseOver={mouseOverHandler} onMouseOut = {mouseOutHandler} className="small-film-card catalog__films-card">
       <div className="small-film-card__image">
-        <img src={movie.previewImage} alt={movie.name} width="280" height="175" />
+        {
+          isVideoPlaing
+            ? <VideoPlayer src={movie.previewVideoLink} poster={movie.previewImage}/>
+            : <img src={movie.previewImage} alt={movie.name} width="280" height="175" />
+        }
       </div>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`/films/${movie.id}`}>
@@ -21,5 +44,4 @@ function MovieCard({movie, onMovie}: MovieCardProps): JSX.Element {
     </article>
   );
 }
-
 export default MovieCard;
