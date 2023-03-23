@@ -9,14 +9,16 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import MoviePage from '../../pages/movie-page/movie-page';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
-import { MovieDescription } from '../../types/movie';
+import { MovieDescription, ReviewDescription } from '../../types/movie';
+import { MovieInfoType} from '../../const';
 
 type AppScreenProps = {
   movies: MovieDescription[];
+  reviews: ReviewDescription[];
 }
 
 
-function App({movies}: AppScreenProps): JSX.Element {
+function App({movies, reviews}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -44,13 +46,21 @@ function App({movies}: AppScreenProps): JSX.Element {
           path={AppRoute.AddReview}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <AddReviewPage movies = {movies}/>
+              <AddReviewPage movies = {movies} />
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.Movie}
-          element={<MoviePage movies = {movies}/>}
+          element={<MoviePage movies = {movies} reviews = {reviews} movieInfoType={MovieInfoType.Overview}/>}
+        />
+        <Route
+          path={AppRoute.MovieReview}
+          element={<MoviePage movies = {movies} reviews = {reviews} movieInfoType={MovieInfoType.Reviews}/>}
+        />
+        <Route
+          path={AppRoute.MovieDetails}
+          element={<MoviePage movies = {movies} reviews = {reviews} movieInfoType={MovieInfoType.Details}/>}
         />
         <Route
           path="*"
