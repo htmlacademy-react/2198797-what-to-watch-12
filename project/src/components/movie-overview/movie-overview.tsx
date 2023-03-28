@@ -1,5 +1,6 @@
 import { MovieDescription } from '../../types/movie';
-import { MovieRating } from '../../const';
+import { MovieRating, RatingValue } from '../../const';
+
 
 type MovieOverviewProps = {
     movie: MovieDescription;
@@ -8,19 +9,19 @@ type MovieOverviewProps = {
 
 function MovieOverview({movie}: MovieOverviewProps): JSX.Element {
 
-  let rating = 'Awesome';
+  let rating = RatingValue.Awesome;
 
   if(movie.rating < MovieRating.VeryGood){
-    rating = 'Very Good';
+    rating = RatingValue.VeryGood;
   }
   if(movie.rating < MovieRating.Good){
-    rating = 'Very Good';
+    rating = RatingValue.Good;
   }
   if(movie.rating < MovieRating.Normal){
-    rating = 'Normal';
+    rating = RatingValue.Mormal;
   }
   if(movie.rating < MovieRating.Bad){
-    rating = 'Bad';
+    rating = RatingValue.Bad;
   }
 
   return (

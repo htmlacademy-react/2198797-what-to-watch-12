@@ -1,6 +1,5 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
-//import MoviePage from '../../pages/movie-page/movie-page';
 import MyListPage from '../../pages/my-list-page/my-list-page';
 import PlayerPage from '../../pages/player-page/player-page';
 import SignInPage from '../../pages/sign-in-page/sign-in-page';
@@ -24,7 +23,7 @@ function App({movies, reviews}: AppScreenProps): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainPage movies = {movies}/>}
+          element={<MainPage/>}
         />
         <Route
           path={AppRoute.Player}
