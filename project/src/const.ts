@@ -27,3 +27,11 @@ export enum MovieRating {
     'Good' = 8,
     'VeryGood' = 10,
   }
+
+export enum RatingValue {
+  Bad = 'Bad',
+  Mormal = 'Normal',
+  Good = 'Good',
+  VeryGood = 'Very Good',
+  Awesome = 'Awesome',
+}
