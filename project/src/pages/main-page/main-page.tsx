@@ -2,12 +2,20 @@ import Logo from '../../components/logo/logo';
 import MoviesList from '../../components/movies-list/movies-list';
 import GenreList from '../../components/genres-list/genres-list';
 import {useAppSelector} from '../../hooks';
+import { useState } from 'react';
 
+const NUMBER_MOVIES_PER_STEP = 8;
 
 function MainPage(): JSX.Element {
 
   const movies = useAppSelector((state) => state.filteredMovies);
   const initialMovies = useAppSelector((state) => state.movies);
+
+  const [moviesNumber, setMoviesNumber] = useState(NUMBER_MOVIES_PER_STEP);
+
+  function showMoreButtonHandler(){
+    setMoviesNumber(moviesNumber + NUMBER_MOVIES_PER_STEP);
+  }
 
   return (
     <>
@@ -74,12 +82,13 @@ function MainPage(): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            <MoviesList movies={movies}/>
+            <MoviesList movies={movies.slice(0, moviesNumber)}/>
           </div>
 
+          { (movies.length > moviesNumber) &&
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+            <button onClick={showMoreButtonHandler} className="catalog__button" type="button">Show more</button>
+          </div>}
         </section>
 
         <footer className="page-footer">
