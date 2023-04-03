@@ -29,3 +29,5 @@ export type ReviewDescription ={
       date: string;
   }
 
+export type Genre = string;
+

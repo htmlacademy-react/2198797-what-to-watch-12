@@ -1,17 +1,19 @@
 import Logo from '../../components/logo/logo';
-import { MovieDescription, ReviewDescription } from '../../types/movie';
+import {ReviewDescription } from '../../types/movie';
 import { useParams, Link } from 'react-router-dom';
 import Tabs from '../../components/tabs/tabs';
 import MoviesList from '../../components/movies-list/movies-list';
 import { getSimilarFilms } from '../../utils';
+import { useAppSelector } from '../../hooks';
 
 type MoviePageProp = {
-  movies: MovieDescription[];
   reviews: ReviewDescription[];
   movieInfoType: string;
 };
 
-function MoviePage({movies, reviews, movieInfoType}: MoviePageProp): JSX.Element {
+function MoviePage({reviews, movieInfoType}: MoviePageProp): JSX.Element {
+
+  const movies = useAppSelector((store) => store.movies);
 
   const params = useParams();
 
