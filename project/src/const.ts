@@ -35,3 +35,11 @@ export enum RatingValue {
   VeryGood = 'Very Good',
   Awesome = 'Awesome',
 }
+
+export enum APIRoute {
+  Movies = '/films',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export const TIMEOUT_SHOW_ERROR = 2000;

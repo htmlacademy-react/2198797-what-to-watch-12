@@ -1,12 +1,11 @@
 import { useParams } from 'react-router-dom';
-import { MovieDescription } from '../../types/movie';
 import { useState, useEffect, useRef} from 'react';
+import { useAppSelector } from '../../hooks';
 
-type PlayerPageProps = {
-  movies: MovieDescription[];
-}
 
-function PlayerPage({movies}: PlayerPageProps): JSX.Element {
+function PlayerPage(): JSX.Element {
+
+  const movies = useAppSelector((state) => state.movies);
 
   const params = useParams();
 

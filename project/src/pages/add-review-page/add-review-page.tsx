@@ -1,14 +1,11 @@
 import Logo from '../../components/logo/logo';
 import {useState, ChangeEvent} from 'react';
-import { MovieDescription } from '../../types/movie';
 import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
 
+function AddReviewPage(): JSX.Element {
 
-type AddReviewPageProps = {
-  movies: MovieDescription[];
-}
-
-function AddReviewPage({movies}: AddReviewPageProps): JSX.Element {
+  const movies = useAppSelector((state) => state.movies);
 
   const params = useParams();
 

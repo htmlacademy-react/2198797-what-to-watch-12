@@ -11,6 +11,7 @@ function MainPage(): JSX.Element {
   const movies = useAppSelector((state) => state.filteredMovies);
   const initialMovies = useAppSelector((state) => state.movies);
 
+
   const [moviesNumber, setMoviesNumber] = useState(NUMBER_MOVIES_PER_STEP);
 
   function showMoreButtonHandler(){
