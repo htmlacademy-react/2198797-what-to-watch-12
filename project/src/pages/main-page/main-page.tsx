@@ -1,8 +1,10 @@
 import Logo from '../../components/logo/logo';
 import MoviesList from '../../components/movies-list/movies-list';
 import GenreList from '../../components/genres-list/genres-list';
+import UserComponent from '../../components/user-component/user-component';
 import {useAppSelector} from '../../hooks';
 import { useState } from 'react';
+
 
 const NUMBER_MOVIES_PER_STEP = 8;
 
@@ -11,12 +13,13 @@ function MainPage(): JSX.Element {
   const movies = useAppSelector((state) => state.filteredMovies);
   const initialMovies = useAppSelector((state) => state.movies);
 
-
   const [moviesNumber, setMoviesNumber] = useState(NUMBER_MOVIES_PER_STEP);
+
 
   function showMoreButtonHandler(){
     setMoviesNumber(moviesNumber + NUMBER_MOVIES_PER_STEP);
   }
+
 
   return (
     <>
@@ -36,9 +39,8 @@ function MainPage(): JSX.Element {
                 <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
               </div>
             </li>
-            <li className="user-block__item">
-              <a href="#/" className="user-block__link">Sign out</a>
-            </li>
+            <UserComponent/>
+
           </ul>
         </header>
 
