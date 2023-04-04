@@ -5,6 +5,8 @@ import Tabs from '../../components/tabs/tabs';
 import MoviesList from '../../components/movies-list/movies-list';
 import { getSimilarFilms } from '../../utils';
 import { useAppSelector } from '../../hooks';
+import UserComponent from '../../components/user-component/user-component';
+import { AuthorizationStatus } from '../../const';
 
 type MoviePageProp = {
   reviews: ReviewDescription[];
@@ -14,6 +16,7 @@ type MoviePageProp = {
 function MoviePage({reviews, movieInfoType}: MoviePageProp): JSX.Element {
 
   const movies = useAppSelector((store) => store.movies);
+  const authenticationStatus = useAppSelector((store) => store.authorizationStatus);
 
   const params = useParams();
 
@@ -36,9 +39,7 @@ function MoviePage({reviews, movieInfoType}: MoviePageProp): JSX.Element {
                   <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
                 </div>
               </li>
-              <li className="user-block__item">
-                <a href="#/" className="user-block__link">Sign out</a>
-              </li>
+              <UserComponent/>
             </ul>
           </header>
 
@@ -64,7 +65,7 @@ function MoviePage({reviews, movieInfoType}: MoviePageProp): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link className="btn film-card__button" to={`/films/${Number(params.id)}/review`}>Add review</Link>
+                {authenticationStatus === AuthorizationStatus.Auth && <Link className="btn film-card__button" to={`/films/${Number(params.id)}/review`}>Add review</Link>}
               </div>
             </div>
           </div>

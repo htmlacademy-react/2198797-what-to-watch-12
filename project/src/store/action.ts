@@ -10,10 +10,8 @@ export const loadMovies = createAction<MovieDescription[]>('loadMovies');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('requireAuthorization');
 
-export const setError = createAction<string | null>('setError');
+export const setMoviesDataLoadingStatus = createAction<boolean>('setMoviesDataLoadingStatus');
 
-export const setMoviesDataLoadingStatus = createAction<boolean>('data/setQuestionsDataLoadingStatus');
-
-export const redirectToRoute = createAction<AppRoute>('game/redirectToRoute');
+export const redirectToRoute = createAction<AppRoute>('redirectToRoute');
 
 
