@@ -2,11 +2,15 @@ import Logo from '../../components/logo/logo';
 import {ReviewDescription } from '../../types/movie';
 import { useParams, Link } from 'react-router-dom';
 import Tabs from '../../components/tabs/tabs';
-import MoviesList from '../../components/movies-list/movies-list';
-import { getSimilarFilms } from '../../utils';
-import { useAppSelector } from '../../hooks';
+import MoviesSimilarList from '../../components/movies-similar-list/movies-similar-list';
+import { useAppSelector, useAppDispatch} from '../../hooks';
 import UserComponent from '../../components/user-component/user-component';
 import { AuthorizationStatus } from '../../const';
+import { fetchMovieAction, fetchReviewsAction, fetchSimilarMoviesAction} from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
+import NotFoundPage from '../not-found-page/not-found-page';
+import { useEffect } from 'react';
+
 
 type MoviePageProp = {
   reviews: ReviewDescription[];
@@ -14,18 +18,41 @@ type MoviePageProp = {
 };
 
 function MoviePage({reviews, movieInfoType}: MoviePageProp): JSX.Element {
+  const params = useParams();
+  const dispatch = useAppDispatch();
+
+  const id = Number(params.id);
+
+  useEffect(
+    () => {
+      dispatch(fetchMovieAction(id));
+      dispatch(fetchReviewsAction(id));
+      dispatch(fetchSimilarMoviesAction(id));
+    });
+
 
   const movies = useAppSelector((store) => store.movies);
   const authenticationStatus = useAppSelector((store) => store.authorizationStatus);
+  const isMovieDataLoading = useAppSelector((store) => store.isMovieDataLoading);
 
-  const params = useParams();
+  if (movies.length < id){
+    return (
+      <NotFoundPage />
+    );
+  }
+
+  if (isMovieDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={movies[Number(params.id) - 1].backgroundImage} alt={movies[Number(params.id) - 1].name} />
+            <img src={movies[id - 1].backgroundImage} alt={movies[id - 1].name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -45,10 +72,10 @@ function MoviePage({reviews, movieInfoType}: MoviePageProp): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{movies[Number(params.id) - 1].name}</h2>
+              <h2 className="film-card__title">{movies[id - 1].name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{movies[Number(params.id) - 1].genre}</span>
-                <span className="film-card__year">{movies[Number(params.id) - 1].released}</span>
+                <span className="film-card__genre">{movies[id - 1].genre}</span>
+                <span className="film-card__year">{movies[id - 1].released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -74,10 +101,10 @@ function MoviePage({reviews, movieInfoType}: MoviePageProp): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={movies[Number(params.id) - 1].posterImage} alt={movies[Number(params.id) - 1].name} width="218" height="327" />
+              <img src={movies[id - 1].posterImage} alt={movies[id - 1].name} width="218" height="327" />
             </div>
 
-            <Tabs movie={movies[Number(params.id) - 1]} reviews={reviews} movieInfoType={movieInfoType}/>
+            <Tabs movieInfoType={movieInfoType}/>
           </div>
         </div>
       </section>
@@ -87,7 +114,7 @@ function MoviePage({reviews, movieInfoType}: MoviePageProp): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <MoviesList movies={getSimilarFilms(movies, movies[Number(params.id) - 1].genre, movies[Number(params.id) - 1].id)}/>
+            <MoviesSimilarList/>
           </div>
         </section>
 

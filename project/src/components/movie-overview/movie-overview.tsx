@@ -39,7 +39,8 @@ function MovieOverview({movie}: MovieOverviewProps): JSX.Element {
 
         <p className="film-card__director"><strong>Director: {movie.director}</strong></p>
 
-        <p className="film-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
+        <p className="film-card__starring"><strong>Staring:{movie.starring.map((element, index) => (<span key={`${index + 1}`}>{`${element}, `} </span>))}</strong>
+        </p>
       </div>
     </>
 

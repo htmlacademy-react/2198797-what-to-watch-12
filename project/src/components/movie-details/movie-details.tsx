@@ -19,11 +19,11 @@ function MovieDetails({movie}: MovieDetailsProps): JSX.Element {
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
             {
-              movie.starring.map((element) => (
-                <>
+              movie.starring.map((element, index) => (
+                <span key={`${index + 1}`} >
                   {element}
                   <br/>
-                </>
+                </span>
               ))
             }
           </span>
