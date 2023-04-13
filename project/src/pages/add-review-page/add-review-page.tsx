@@ -24,6 +24,7 @@ function AddReviewPage(): JSX.Element {
 
   useEffect(() => {
     disableSubmitButtonHandler();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[userGrade]);
 
   const disableSubmitButtonHandler = () => {

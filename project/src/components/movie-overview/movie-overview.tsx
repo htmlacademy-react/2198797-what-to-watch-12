@@ -1,13 +1,15 @@
-import { MovieDescription } from '../../types/movie';
 import { MovieRating, RatingValue } from '../../const';
+import { useAppSelector } from '../../hooks';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
 
 
-type MovieOverviewProps = {
-    movie: MovieDescription;
-}
+function MovieOverview(): JSX.Element {
 
+  const movie = useAppSelector((state) => state.movie);
 
-function MovieOverview({movie}: MovieOverviewProps): JSX.Element {
+  if(movie === null){
+    return(<NotFoundPage/>);
+  }
 
   let rating = RatingValue.Awesome;
 

@@ -1,12 +1,10 @@
-import { ReviewDescription } from '../../types/movie';
 import MovieReview from '../movie-review/movie-review';
-
-type MovieReviewsListProps = {
-    reviews: ReviewDescription[];
-}
+import { useAppSelector } from '../../hooks';
 
 
-function MovieReviewsList({reviews}: MovieReviewsListProps): JSX.Element {
+function MovieReviewsList(): JSX.Element {
+
+  const reviews = useAppSelector((state) => state.reviews);
 
   return (
 

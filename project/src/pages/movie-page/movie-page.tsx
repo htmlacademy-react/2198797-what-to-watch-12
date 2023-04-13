@@ -1,26 +1,24 @@
 import Logo from '../../components/logo/logo';
-import {ReviewDescription } from '../../types/movie';
 import { useParams, Link } from 'react-router-dom';
 import Tabs from '../../components/tabs/tabs';
 import MoviesSimilarList from '../../components/movies-similar-list/movies-similar-list';
 import { useAppSelector, useAppDispatch} from '../../hooks';
 import UserComponent from '../../components/user-component/user-component';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus} from '../../const';
 import { fetchMovieAction, fetchReviewsAction, fetchSimilarMoviesAction} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { useEffect } from 'react';
+import { memo } from 'react';
 
 
 type MoviePageProp = {
-  reviews: ReviewDescription[];
   movieInfoType: string;
 };
 
-function MoviePage({reviews, movieInfoType}: MoviePageProp): JSX.Element {
+function MoviePage({movieInfoType}: MoviePageProp): JSX.Element {
   const params = useParams();
   const dispatch = useAppDispatch();
-
   const id = Number(params.id);
 
   useEffect(
@@ -104,7 +102,7 @@ function MoviePage({reviews, movieInfoType}: MoviePageProp): JSX.Element {
               <img src={movies[id - 1].posterImage} alt={movies[id - 1].name} width="218" height="327" />
             </div>
 
-            <Tabs movieInfoType={movieInfoType}/>
+            <Tabs movieInfoType={movieInfoType} id={id}/>
           </div>
         </div>
       </section>
@@ -130,4 +128,4 @@ function MoviePage({reviews, movieInfoType}: MoviePageProp): JSX.Element {
   );
 }
 
-export default MoviePage;
+export default memo(MoviePage);
