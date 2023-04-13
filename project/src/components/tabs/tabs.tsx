@@ -1,19 +1,24 @@
-import { MovieDescription } from '../../types/movie';
-import { ReviewDescription } from '../../types/movie';
 import { Link } from 'react-router-dom';
 import { MovieInfoType } from '../../const';
 import MovieReviewsList from '../movie-reviews-list/movie-reviews-list';
 import MovieDetails from '../movie-details/movie-details';
 import MovieOverview from '../movie-overview/movie-overview';
+import { useAppSelector } from '../../hooks';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
 
 type TabsProps = {
     movieInfoType: string;
-    movie: MovieDescription;
-    reviews: ReviewDescription[];
 }
 
 
-function Tabs({movie, reviews, movieInfoType}: TabsProps): JSX.Element {
+function Tabs({movieInfoType}: TabsProps): JSX.Element {
+
+  const movie = useAppSelector((state) => state.movie);
+  const reviews = useAppSelector((state) => state.reviews);
+
+  if(movie === null){
+    return(<NotFoundPage/>);
+  }
 
   return (
     <div className="film-card__desc">
