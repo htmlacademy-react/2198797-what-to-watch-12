@@ -23,7 +23,6 @@ function AddReviewPage(): JSX.Element {
   const [userGrade, setUserGrade] = useState(-1);
 
   useEffect(() => {
-    console.log(userGrade);
     disableSubmitButtonHandler();
   },[userGrade]);
 
