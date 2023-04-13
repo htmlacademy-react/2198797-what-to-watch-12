@@ -23,10 +23,12 @@ function AddReviewPage(): JSX.Element {
   const [userGrade, setUserGrade] = useState(-1);
 
   useEffect(() => {
+    console.log(userGrade);
     disableSubmitButtonHandler();
   },[userGrade]);
 
   const disableSubmitButtonHandler = () => {
+
     if(commentRef.current !== null && submitButtonRef.current !== null){
       if(commentRef.current.value.length >= MIN_SIMBOLS_NUMBER && commentRef.current.value.length <= MAX_SIMBOLS_NUMBER && userGrade >= 0){
         submitButtonRef.current.removeAttribute('disabled');
@@ -37,6 +39,9 @@ function AddReviewPage(): JSX.Element {
   };
 
   const onSubmit = (reviewData: ReviewData) => {
+    if(submitButtonRef.current !== null){
+      submitButtonRef.current.setAttribute('disabled', 'true');
+    }
     dispatch(addReviewAction(reviewData));
   };
 
@@ -45,7 +50,7 @@ function AddReviewPage(): JSX.Element {
     if(commentRef.current !== null && userGrade >= 0){
       onSubmit({
         comment: commentRef.current.value,
-        rating: userGrade,
+        rating: userGrade + 1,
         filmId: Number(params.id),
       });
     }
@@ -100,9 +105,9 @@ function AddReviewPage(): JSX.Element {
                 Array.from({ length: MAX_RATING_NUMBER }, () => 0).map((element, index) =>(
                   <div key = {`${index + 1}`}>
                     <input className="rating__input" id={`star-${index}`} type="radio" name="rating" value={index}
-                      checked={index === userGrade}
+                      checked={index === Math.abs(userGrade - 9)}
                       onChange={({target}: ChangeEvent<HTMLInputElement>) => {
-                        setUserGrade(index);
+                        setUserGrade(Math.abs(index - 9));
                       }}
                     />
                     <label className="rating__label" htmlFor={`star-${index}`}>{`Rating ${index}`}</label>
