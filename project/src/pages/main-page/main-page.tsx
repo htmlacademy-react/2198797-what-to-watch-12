@@ -4,17 +4,17 @@ import GenreList from '../../components/genres-list/genres-list';
 import UserComponent from '../../components/user-component/user-component';
 import {useAppSelector} from '../../hooks';
 import { useState } from 'react';
+import { getMovies, getFilteredMovies } from '../../store/movies-data/selectors';
 
 
 const NUMBER_MOVIES_PER_STEP = 8;
 
 function MainPage(): JSX.Element {
 
-  const movies = useAppSelector((state) => state.filteredMovies);
-  const initialMovies = useAppSelector((state) => state.movies);
+  const movies = useAppSelector(getFilteredMovies);
+  const initialMovies = useAppSelector(getMovies);
 
   const [moviesNumber, setMoviesNumber] = useState(NUMBER_MOVIES_PER_STEP);
-
 
   function showMoreButtonHandler(){
     setMoviesNumber(moviesNumber + NUMBER_MOVIES_PER_STEP);

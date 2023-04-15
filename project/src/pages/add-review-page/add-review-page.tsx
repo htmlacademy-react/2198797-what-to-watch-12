@@ -6,6 +6,7 @@ import {useRef} from 'react';
 import { FormEvent } from 'react';
 import { addReviewAction } from '../../store/api-actions';
 import { ReviewData } from '../../types/review-data';
+import { getMovies } from '../../store/movies-data/selectors';
 
 const MIN_SIMBOLS_NUMBER = 50;
 const MAX_SIMBOLS_NUMBER = 400;
@@ -17,13 +18,14 @@ function AddReviewPage(): JSX.Element {
   const submitButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const dispatch = useAppDispatch();
-  const movies = useAppSelector((state) => state.movies);
+  const movies = useAppSelector(getMovies);
   const params = useParams();
 
   const [userGrade, setUserGrade] = useState(-1);
 
   useEffect(() => {
     disableSubmitButtonHandler();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[userGrade]);
 
   const disableSubmitButtonHandler = () => {

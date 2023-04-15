@@ -1,11 +1,15 @@
-import { MovieDescription } from '../../types/movie';
+import { useAppSelector } from '../../hooks';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import { getMovie } from '../../store/movies-data/selectors';
 
-type MovieDetailsProps = {
-    movie: MovieDescription;
-}
+function MovieDetails(): JSX.Element {
 
+  const movie = useAppSelector(getMovie);
 
-function MovieDetails({movie}: MovieDetailsProps): JSX.Element {
+  if(movie === null){
+    return(<NotFoundPage/>);
+  }
+
 
   return (
 

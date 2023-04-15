@@ -1,11 +1,12 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect, useRef} from 'react';
 import { useAppSelector } from '../../hooks';
+import { getMovies } from '../../store/movies-data/selectors';
 
 
 function PlayerPage(): JSX.Element {
 
-  const movies = useAppSelector((state) => state.movies);
+  const movies = useAppSelector(getMovies);
 
   const params = useParams();
 

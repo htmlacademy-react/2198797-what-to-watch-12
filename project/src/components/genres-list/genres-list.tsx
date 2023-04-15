@@ -1,6 +1,7 @@
 import { MovieDescription } from '../../types/movie';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import { changeGenre } from '../../store/action';
+import { getGenre } from '../../store/movies-data/selectors';
+import { moviesData } from '../../store/movies-data/movies-data';
 
 type GenreListProps = {
     movies: MovieDescription[];
@@ -10,7 +11,7 @@ type GenreListProps = {
 function GenreList({movies}: GenreListProps): JSX.Element {
 
   const dispatch = useAppDispatch();
-  const currentGenre = useAppSelector((state) => state.genre);
+  const currentGenre = useAppSelector(getGenre);
 
   const genres = new Set<string>();
   genres.add('All genres');
@@ -21,7 +22,7 @@ function GenreList({movies}: GenreListProps): JSX.Element {
     //(evt.currentTarget as Element).classList.add('catalog__genres-item--active');
     const newGenre = (evt.target as HTMLElement).getAttribute('data-genre');
     if(newGenre !== null){
-      dispatch(changeGenre(newGenre));
+      dispatch(moviesData.actions.changeGenre({genre:newGenre}));
     }
   }
   //${}
