@@ -1,10 +1,11 @@
 import MovieReview from '../movie-review/movie-review';
 import { useAppSelector } from '../../hooks';
+import { getReviews } from '../../store/movies-data/selectors';
 
 
 function MovieReviewsList(): JSX.Element {
 
-  const reviews = useAppSelector((state) => state.reviews);
+  const reviews = useAppSelector(getReviews);
 
   return (
 

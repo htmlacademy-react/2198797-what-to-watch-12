@@ -6,10 +6,11 @@ import { useAppSelector, useAppDispatch} from '../../hooks';
 import UserComponent from '../../components/user-component/user-component';
 import { AuthorizationStatus} from '../../const';
 import { fetchMovieAction, fetchReviewsAction, fetchSimilarMoviesAction} from '../../store/api-actions';
-import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { useEffect } from 'react';
 import { memo } from 'react';
+import { getMovies} from '../../store/movies-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 
 type MoviePageProp = {
@@ -29,9 +30,8 @@ function MoviePage({movieInfoType}: MoviePageProp): JSX.Element {
     });
 
 
-  const movies = useAppSelector((store) => store.movies);
-  const authenticationStatus = useAppSelector((store) => store.authorizationStatus);
-  const isMovieDataLoading = useAppSelector((store) => store.isMovieDataLoading);
+  const movies = useAppSelector(getMovies);
+  const authenticationStatus = useAppSelector(getAuthorizationStatus);
 
   if (movies.length < id){
     return (
@@ -39,11 +39,6 @@ function MoviePage({movieInfoType}: MoviePageProp): JSX.Element {
     );
   }
 
-  if (isMovieDataLoading) {
-    return (
-      <LoadingScreen />
-    );
-  }
 
   return (
     <>

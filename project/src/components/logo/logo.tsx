@@ -1,10 +1,14 @@
 import {Link} from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { moviesData } from '../../store/movies-data/movies-data';
 
 type LogoProps = {
     lightLogo: boolean;
 }
 
 function Logo({lightLogo}: LogoProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  dispatch(moviesData.actions.changeGenre({genre:'All genres'}));
   let logoClass = 'logo__link';
 
   if(lightLogo){

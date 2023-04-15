@@ -1,11 +1,12 @@
 import { MovieRating, RatingValue } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getMovie } from '../../store/movies-data/selectors';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 
 
 function MovieOverview(): JSX.Element {
 
-  const movie = useAppSelector((state) => state.movie);
+  const movie = useAppSelector(getMovie);
 
   if(movie === null){
     return(<NotFoundPage/>);

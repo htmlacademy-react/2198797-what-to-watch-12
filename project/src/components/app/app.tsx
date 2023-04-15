@@ -6,20 +6,24 @@ import SignInPage from '../../pages/sign-in-page/sign-in-page';
 import AddReviewPage from '../../pages/add-review-page/add-review-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import MoviePage from '../../pages/movie-page/movie-page';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { MovieInfoType} from '../../const';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { useAppSelector} from '../../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import {getAuthorizationStatus, getAuthCheckedStatus} from '../../store/user-process/selectors';
+import { getMoviesDataLoadingStatus } from '../../store/movies-data/selectors';
 
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isMoviesDataLoading = useAppSelector((state) => state.isMoviesDataLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  const isMoviesDataLoading = useAppSelector(getMoviesDataLoadingStatus);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isMoviesDataLoading) {
+
+  if (!isAuthChecked || isMoviesDataLoading) {
     return (
       <LoadingScreen />
     );

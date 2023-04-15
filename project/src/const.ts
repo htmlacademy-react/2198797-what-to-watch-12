@@ -45,6 +45,6 @@ export enum APIRoute {
 }
 
 export enum NameSpace {
-  Movie = 'MOVIE',
+  Movies = 'MOVIES',
   User = 'USER',
 }

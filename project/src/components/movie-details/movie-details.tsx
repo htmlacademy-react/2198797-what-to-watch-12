@@ -1,9 +1,10 @@
 import { useAppSelector } from '../../hooks';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import { getMovie } from '../../store/movies-data/selectors';
 
 function MovieDetails(): JSX.Element {
 
-  const movie = useAppSelector((state) => state.movie);
+  const movie = useAppSelector(getMovie);
 
   if(movie === null){
     return(<NotFoundPage/>);
