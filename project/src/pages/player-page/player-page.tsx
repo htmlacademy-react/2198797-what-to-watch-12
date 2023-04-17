@@ -32,7 +32,7 @@ function PlayerPage(): JSX.Element {
 
   const exitButtonHendler = () => {
     navigate(`/films/${Number(params.id)}`);
-  }
+  };
 
   useEffect(() => {
     if(videoRef.current !== null){
