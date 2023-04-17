@@ -22,7 +22,7 @@ function GenreList({movies}: GenreListProps): JSX.Element {
     //(evt.currentTarget as Element).classList.add('catalog__genres-item--active');
     const newGenre = (evt.target as HTMLElement).getAttribute('data-genre');
     if(newGenre !== null){
-      dispatch(moviesData.actions.changeGenre({genre:newGenre}));
+      dispatch(moviesData.actions.changeGenre(newGenre));
     }
   }
   //${}

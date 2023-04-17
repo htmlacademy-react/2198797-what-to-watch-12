@@ -13,10 +13,12 @@ export type MoviesData = {
     filteredMovies: MovieDescription[];
     movies: MovieDescription[];
     similarMovies: MovieDescription[];
+    favoriteMovies: MovieDescription[];
     reviews: ReviewDescription[];
     isMoviesDataLoading: boolean;
     isMovieDataLoading: boolean;
     movie: MovieDescription | null;
+    favoriteCounter: number;
 }
 
 export type State = ReturnType<typeof store.getState>;

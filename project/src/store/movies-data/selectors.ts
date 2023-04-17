@@ -11,4 +11,6 @@ export const getMoviesDataLoadingStatus = (state: State): boolean => state[NameS
 export const getMovieDataLoadingStatus = (state: State): boolean => state[NameSpace.Movies].isMovieDataLoading;
 export const getFilteredMovies = (state: State): MovieDescription[] => state[NameSpace.Movies].filteredMovies;
 export const getGenre = (state: State): Genre => state[NameSpace.Movies].genre;
+export const getFavoriteMovies = (state: State): MovieDescription[] => state[NameSpace.Movies].favoriteMovies;
+export const getFavoriteCounter = (state: State): number => state[NameSpace.Movies].favoriteCounter;
 
