@@ -7,6 +7,7 @@ import { FormEvent } from 'react';
 import { addReviewAction } from '../../store/api-actions';
 import { ReviewData } from '../../types/review-data';
 import { getMovies } from '../../store/movies-data/selectors';
+import UserComponent from '../../components/user-component/user-component';
 
 const MIN_SIMBOLS_NUMBER = 50;
 const MAX_SIMBOLS_NUMBER = 400;
@@ -81,16 +82,7 @@ function AddReviewPage(): JSX.Element {
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a href="#/" className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserComponent/>
         </header>
 
         <div className="film-card__poster film-card__poster--small">

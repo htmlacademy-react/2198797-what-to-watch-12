@@ -11,6 +11,8 @@ import { useEffect } from 'react';
 import { memo } from 'react';
 import { getMovies} from '../../store/movies-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { useNavigate } from 'react-router-dom';
+import MyListButton from '../../components/my-list-button/my-list-button';
 
 
 type MoviePageProp = {
@@ -21,6 +23,7 @@ function MoviePage({movieInfoType}: MoviePageProp): JSX.Element {
   const params = useParams();
   const dispatch = useAppDispatch();
   const id = Number(params.id);
+  const navigate = useNavigate();
 
   useEffect(
     () => {
@@ -39,6 +42,10 @@ function MoviePage({movieInfoType}: MoviePageProp): JSX.Element {
     );
   }
 
+  const playButtonHendler = () => {
+    navigate(`/player/${movies[id - 1].id}`);
+  };
+
 
   return (
     <>
@@ -52,15 +59,7 @@ function MoviePage({movieInfoType}: MoviePageProp): JSX.Element {
 
           <header className="page-header film-card__head">
             <Logo lightLogo = {false}/>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <UserComponent/>
-            </ul>
+            <UserComponent/>
           </header>
 
           <div className="film-card__wrap">
@@ -72,19 +71,13 @@ function MoviePage({movieInfoType}: MoviePageProp): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button onClick={playButtonHendler} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <MyListButton filmId={movies[id - 1].id}/>
                 {authenticationStatus === AuthorizationStatus.Auth && <Link className="btn film-card__button" to={`/films/${Number(params.id)}/review`}>Add review</Link>}
               </div>
             </div>

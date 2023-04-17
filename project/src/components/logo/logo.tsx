@@ -8,7 +8,12 @@ type LogoProps = {
 
 function Logo({lightLogo}: LogoProps): JSX.Element {
   const dispatch = useAppDispatch();
-  dispatch(moviesData.actions.changeGenre({genre:'All genres'}));
+
+
+  const buttonHandler = () => {
+    dispatch(moviesData.actions.changeGenre('All genres'));
+  };
+
   let logoClass = 'logo__link';
 
   if(lightLogo){
@@ -17,7 +22,7 @@ function Logo({lightLogo}: LogoProps): JSX.Element {
 
   return (
     <div className="logo">
-      <Link className={logoClass} to="/">
+      <Link className={logoClass} to="/" onClick={buttonHandler}>
         <span className="logo__letter logo__letter--1">W</span>
         <span className="logo__letter logo__letter--2">T</span>
         <span className="logo__letter logo__letter--3">W</span>

@@ -41,7 +41,8 @@ export enum APIRoute {
   Movies = '/films',
   Login = '/login',
   Logout = '/logout',
-  Comments = '/comments'
+  Comments = '/comments',
+  Favorite = '/favorite',
 }
 
 export enum NameSpace {

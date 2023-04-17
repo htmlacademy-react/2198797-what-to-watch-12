@@ -5,11 +5,15 @@ import UserComponent from '../../components/user-component/user-component';
 import {useAppSelector} from '../../hooks';
 import { useState } from 'react';
 import { getMovies, getFilteredMovies } from '../../store/movies-data/selectors';
+import { useNavigate } from 'react-router-dom';
+import MyListButton from '../../components/my-list-button/my-list-button';
 
 
 const NUMBER_MOVIES_PER_STEP = 8;
 
 function MainPage(): JSX.Element {
+
+  const navigate = useNavigate();
 
   const movies = useAppSelector(getFilteredMovies);
   const initialMovies = useAppSelector(getMovies);
@@ -18,6 +22,10 @@ function MainPage(): JSX.Element {
 
   function showMoreButtonHandler(){
     setMoviesNumber(moviesNumber + NUMBER_MOVIES_PER_STEP);
+  }
+
+  function playButtonHandler(){
+    navigate(`/player/${movies[0].id}`);
   }
 
 
@@ -32,16 +40,7 @@ function MainPage(): JSX.Element {
 
         <header className="page-header film-card__head">
           <Logo lightLogo = {false}/>
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <UserComponent/>
-
-          </ul>
+          <UserComponent/>
         </header>
 
         <div className="film-card__wrap">
@@ -58,19 +57,13 @@ function MainPage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button onClick={playButtonHandler} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <MyListButton filmId={movies[0].id}/>
               </div>
             </div>
           </div>

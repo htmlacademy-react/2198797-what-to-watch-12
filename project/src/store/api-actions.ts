@@ -9,7 +9,7 @@ import {saveToken, dropToken} from '../services/token';
 import { AuthData } from '../types/auth-data.js';
 import { ReviewData} from '../types/review-data.js';
 import {toast} from 'react-toastify';
-
+import { StatusData } from '../types/status-data.js';
 
 export const fetchMoviesAction = createAsyncThunk<MovieDescription[], undefined, {
   dispatch: AppDispatch;
@@ -59,6 +59,18 @@ export const fetchSimilarMoviesAction = createAsyncThunk<MovieDescription[], num
   },
 );
 
+export const fetchFavoriteMovies = createAsyncThunk<MovieDescription[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'FetchFavoriteMovies',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<MovieDescription[]>(APIRoute.Favorite);
+    return data;
+  },
+);
+
 export const addReviewAction = createAsyncThunk<void, ReviewData,{
   dispatch: AppDispatch;
   state: State;
@@ -72,6 +84,22 @@ export const addReviewAction = createAsyncThunk<void, ReviewData,{
     } catch {
       toast.error('Sending failed');
     }
+  },
+);
+
+export const changeFilmStatus = createAsyncThunk<number, StatusData,{
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'changeFilmStatus',
+  async ({isFavorite, filmId},{dispatch, extra: api}) => {
+    try{
+      await api.post<UserData>(`${APIRoute.Favorite}/${filmId}/${!isFavorite ? '1' : '0'}`);
+    } catch {
+      toast.error('Sending failed');
+    }
+    return filmId;
   },
 );
 
@@ -108,5 +136,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     async (_arg, {dispatch, extra: api}) => {
       await api.delete(APIRoute.Logout);
       dropToken();
+      dispatch(redirectToRoute(AppRoute.Root));
     },
   );
