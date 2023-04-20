@@ -1,4 +1,5 @@
 import { ReviewDescription } from '../../types/movie';
+import { humanizedDate } from '../../utils';
 
 type MovieReviewProps = {
     review: ReviewDescription;
@@ -7,6 +8,7 @@ type MovieReviewProps = {
 
 function MovieReview({review}: MovieReviewProps): JSX.Element{
 
+
   return (
     <div className="review">
       <blockquote className="review__quote">
@@ -14,7 +16,7 @@ function MovieReview({review}: MovieReviewProps): JSX.Element{
 
         <footer className="review__details">
           <cite className="review__author">{review.user.name}</cite>
-          <time className="review__date" dateTime="2016-12-24">{review.date}</time>
+          <time className="review__date" dateTime="2016-12-24">{humanizedDate(review.date)}</time>
         </footer>
       </blockquote>
 
