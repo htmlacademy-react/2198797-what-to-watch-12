@@ -27,9 +27,6 @@ export const moviesData = createSlice({
       state.genre = action.payload;
       state.filteredMovies = (state.genre === 'All genres' ? state.movies : state.movies.filter((element) => element.genre === state.genre));
     },
-    getFilteredMovies: (state) => {
-      state.filteredMovies = (state.genre === 'All genres' ? state.movies : state.movies.filter((element) => element.genre === state.genre));
-    },
     setFavoriteCounter: (state, action: PayloadAction<number>) =>{
       state.favoriteCounter = action.payload;
     }

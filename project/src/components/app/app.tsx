@@ -11,8 +11,6 @@ import PrivateRoute from '../private-route/private-route';
 import { MovieInfoType} from '../../const';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { useAppSelector} from '../../hooks';
-import HistoryRouter from '../history-route/history-route';
-import browserHistory from '../../browser-history';
 import {getAuthorizationStatus, getAuthCheckedStatus} from '../../store/user-process/selectors';
 import { getMoviesDataLoadingStatus } from '../../store/movies-data/selectors';
 
@@ -30,54 +28,52 @@ function App(): JSX.Element {
   }
 
   return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route
-          path={AppRoute.Root}
-          element={<MainPage/>}
-        />
-        <Route
-          path={AppRoute.Player}
-          element={<PlayerPage/>}
-        />
-        <Route
-          path={AppRoute.Login}
-          element={<SignInPage/>}
-        />
-        <Route
-          path={AppRoute.MyList}
-          element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
-              <MyListPage/>
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.AddReview}
-          element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
-              <AddReviewPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Movie}
-          element={<MoviePage movieInfoType={MovieInfoType.Overview}/>}
-        />
-        <Route
-          path={AppRoute.MovieReview}
-          element={<MoviePage movieInfoType={MovieInfoType.Reviews}/>}
-        />
-        <Route
-          path={AppRoute.MovieDetails}
-          element={<MoviePage movieInfoType={MovieInfoType.Details}/>}
-        />
-        <Route
-          path="*"
-          element={<NotFoundPage />}
-        />
-      </Routes>
-    </HistoryRouter>
+    <Routes>
+      <Route
+        path={AppRoute.Root}
+        element={<MainPage/>}
+      />
+      <Route
+        path={AppRoute.Player}
+        element={<PlayerPage/>}
+      />
+      <Route
+        path={AppRoute.Login}
+        element={<SignInPage/>}
+      />
+      <Route
+        path={AppRoute.MyList}
+        element={
+          <PrivateRoute authorizationStatus={authorizationStatus}>
+            <MyListPage/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.AddReview}
+        element={
+          <PrivateRoute authorizationStatus={authorizationStatus}>
+            <AddReviewPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Movie}
+        element={<MoviePage movieInfoType={MovieInfoType.Overview}/>}
+      />
+      <Route
+        path={AppRoute.MovieReview}
+        element={<MoviePage movieInfoType={MovieInfoType.Reviews}/>}
+      />
+      <Route
+        path={AppRoute.MovieDetails}
+        element={<MoviePage movieInfoType={MovieInfoType.Details}/>}
+      />
+      <Route
+        path="*"
+        element={<NotFoundPage />}
+      />
+    </Routes>
   );
 }
 

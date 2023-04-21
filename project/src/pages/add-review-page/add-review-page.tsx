@@ -12,6 +12,7 @@ import UserComponent from '../../components/user-component/user-component';
 const MIN_SIMBOLS_NUMBER = 50;
 const MAX_SIMBOLS_NUMBER = 400;
 const MAX_RATING_NUMBER = 10;
+const MAX_STAR_INDEX = 9;
 
 function AddReviewPage(): JSX.Element {
 
@@ -98,9 +99,9 @@ function AddReviewPage(): JSX.Element {
                 Array.from({ length: MAX_RATING_NUMBER }, () => 0).map((element, index) =>(
                   <div key = {`${index + 1}`}>
                     <input className="rating__input" id={`star-${index}`} type="radio" name="rating" value={index}
-                      checked={index === Math.abs(userGrade - 9)}
+                      checked={index === Math.abs(userGrade - MAX_STAR_INDEX)}
                       onChange={({target}: ChangeEvent<HTMLInputElement>) => {
-                        setUserGrade(Math.abs(index - 9));
+                        setUserGrade(Math.abs(index - MAX_STAR_INDEX));
                       }}
                     />
                     <label className="rating__label" htmlFor={`star-${index}`}>{`Rating ${index}`}</label>
