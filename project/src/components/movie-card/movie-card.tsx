@@ -28,7 +28,7 @@ function MovieCard({movie}: MovieCardProps): JSX.Element {
   }
 
   return (
-    <article onMouseOver={mouseOverHandler} onMouseOut = {mouseOutHandler} className="small-film-card catalog__films-card">
+    <article onMouseOver={mouseOverHandler} onMouseOut = {mouseOutHandler} className="small-film-card catalog__films-card" data-testid="movieCard">
       <div className="small-film-card__image">
         {
           isVideoPlaing

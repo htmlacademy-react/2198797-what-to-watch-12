@@ -1,4 +1,3 @@
-//import {store} from '../store/index.js';
 import {store} from '../store/index';
 import {AuthorizationStatus} from '../const';
 import { MovieDescription, ReviewDescription } from './movie';

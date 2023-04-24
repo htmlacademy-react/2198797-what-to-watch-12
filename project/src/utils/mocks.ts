@@ -5,6 +5,7 @@ import { Genre } from '../types/movie';
 export const GENRE: Genre = 'All genres';
 export const ID = 8;
 
+
 export const makeFakeMovie = (): MovieDescription => ({
   name: name.title(),
   posterImage: image.image(),
@@ -25,7 +26,7 @@ export const makeFakeMovie = (): MovieDescription => ({
   previewVideoLink: internet.domainWord(),
 } as MovieDescription);
 
-const makeReview = (): ReviewDescription => ({
+export const makeFakeReview = (): ReviewDescription => ({
   id: datatype.number(),
   user: {
     id: datatype.number(),
@@ -36,8 +37,9 @@ const makeReview = (): ReviewDescription => ({
   date: datatype.string(),
 });
 
-export const makeFakeReviews = (): ReviewDescription[] => new Array(10).fill(null).map(() => makeReview());
-export const makeFakeMovies = (): MovieDescription[] => new Array(10).fill(null).map(() => makeFakeMovie());
+export const makeFakeReviews = (): ReviewDescription[] => new Array(10).fill(null).map(() => makeFakeReview());
+const makeFakeMoviesTmp = (): MovieDescription[] => new Array(10).fill(null).map(() => makeFakeMovie());
+export const makeFakeMovies = (): MovieDescription[] => makeFakeMoviesTmp().map((element, index) => ({...element, id: index + 1}));
 export const makeFakeFavoriteMovies = (): MovieDescription[] => makeFakeMovies().map((element) => ({...element, isFavorite: true}));
 export const FAVORITE_MOVIES = makeFakeFavoriteMovies();
 export const makeModifyFavoriteMovies = (): MovieDescription[] => FAVORITE_MOVIES.map((element, index) => {

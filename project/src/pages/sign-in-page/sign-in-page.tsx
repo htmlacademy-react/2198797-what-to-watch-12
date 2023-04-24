@@ -4,7 +4,7 @@ import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
 
-
+const PASSWORD_MIN_LENGTH = 2;
 function SignInPage(): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -19,7 +19,7 @@ function SignInPage(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (loginRef.current !== null && passwordRef.current !== null && passwordRef.current.value.length >= PASSWORD_MIN_LENGTH){
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,
@@ -43,7 +43,7 @@ function SignInPage(): JSX.Element {
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className="sign-in__field">
-              <input ref={passwordRef} className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
+              <input ref={passwordRef} className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" pattern="[^\w\d]*(([0-9]+.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))" title="min one character and one number"/>
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>
