@@ -20,7 +20,7 @@ function VideoPlayer({src, poster}: VideoPlayerProps): JSX.Element {
 
   return (
     <div className="track__status">
-      <video poster={poster} src={src} ref={videoRef} />
+      <video poster={poster} src={src} ref={videoRef} data-testid="videoPlayer"/>
     </div>
   );
 }

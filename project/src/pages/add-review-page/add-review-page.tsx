@@ -27,8 +27,7 @@ function AddReviewPage(): JSX.Element {
 
   useEffect(() => {
     disableSubmitButtonHandler();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[userGrade]);
+  });
 
   const disableSubmitButtonHandler = () => {
 
@@ -102,6 +101,7 @@ function AddReviewPage(): JSX.Element {
                       checked={index === Math.abs(userGrade - MAX_STAR_INDEX)}
                       onChange={({target}: ChangeEvent<HTMLInputElement>) => {
                         setUserGrade(Math.abs(index - MAX_STAR_INDEX));
+                        disableSubmitButtonHandler();
                       }}
                     />
                     <label className="rating__label" htmlFor={`star-${index}`}>{`Rating ${index}`}</label>

@@ -9,7 +9,7 @@ function MovieReviewsList(): JSX.Element {
 
   return (
 
-    <div className="film-card__reviews film-card__row">
+    <div className="film-card__reviews film-card__row" data-testid="reviewsList">
       <div className="film-card__reviews-col">
         {
           reviews.map((element) => <MovieReview key={element.id} review={element}/>)

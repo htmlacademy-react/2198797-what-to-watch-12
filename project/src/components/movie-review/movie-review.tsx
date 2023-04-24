@@ -12,7 +12,7 @@ function MovieReview({review}: MovieReviewProps): JSX.Element{
   return (
     <div className="review">
       <blockquote className="review__quote">
-        <p className="review__text">{review.comment}</p>
+        <p className="review__text" data-testid="rendered">{review.comment}</p>
 
         <footer className="review__details">
           <cite className="review__author">{review.user.name}</cite>

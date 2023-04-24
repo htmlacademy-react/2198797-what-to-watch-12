@@ -40,9 +40,9 @@ function MovieOverview(): JSX.Element {
       <div className="film-card__text">
         <p>{movie.description}</p>
 
-        <p className="film-card__director"><strong>Director: {movie.director}</strong></p>
+        <p className="film-card__director" data-testid="Director"><strong>Director: {movie.director}</strong></p>
 
-        <p className="film-card__starring"><strong>Staring:{movie.starring.map((element, index) => (<span key={`${index + 1}`}>{`${element}, `} </span>))}</strong>
+        <p className="film-card__starring" data-testid="Staring"><strong>Staring:{movie.starring.map((element, index) => (<span key={`${index + 1}`}>{`${element}, `} </span>))}</strong>
         </p>
       </div>
     </>
